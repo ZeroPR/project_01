@@ -1,0 +1,9 @@
+{
+    "primary": "#EF6C00",
+    "secondary": "#212121",
+    "accent": "#757575",
+    "error": "#f44336",
+    "warning": "#ffeb3b",
+    "info": "#2196f3",
+    "success": "#4caf50"
+  }

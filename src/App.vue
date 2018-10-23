@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"
@@ -7,6 +7,7 @@
       enable-resize-watcher
       fixed
       app
+      v-if="$session.exists()"
     >
       <v-list>
         <v-list-tile
@@ -14,6 +15,7 @@
           v-for="(item, i) in menuItems"
           :key="i"
           :to="item.to"
+          :disabled="!$session.exists()"
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
@@ -27,22 +29,26 @@
     <v-toolbar
       app
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
+      <v-toolbar-side-icon :ripple="{class: 'primary--text'}" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-btn icon @click.stop="miniVariant = !miniVariant" :ripple="{class: 'primary--text'}">
         <v-icon v-html="miniVariant ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></v-icon>
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip bottom>
         <v-btn icon
-        slot="activator">
+        v-if="$session.exists()"
+        slot="activator"
+        :ripple="{class: 'primary--text'}"
+        @click="logout">
           <v-icon>fas fa-power-off</v-icon>
         </v-btn>
         <span>Cerrar Sesion</span>
       </v-tooltip>
       <v-tooltip bottom>
         <v-btn icon
-        slot="activator">
+        slot="activator"
+        :ripple="{class: 'primary--text'}">
           <v-icon>fas fa-ellipsis-v</v-icon>
         </v-btn>
         <span>Menu</span>
@@ -51,7 +57,7 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-footer :fixed="fixed" app>
+    <v-footer app>
       <span>&copy; 2017</span>
     </v-footer>
   </v-app>
@@ -62,7 +68,6 @@
 export default {
   name: 'App',
   components: {
-    HelloWorld
   },
   data () {
     return {
@@ -78,6 +83,13 @@ export default {
       ],
       miniVariant: false,
       title: 'Vuetify.js'
+    }
+  },
+
+  methods: {
+    logout(){
+      this.$session.destroy()
+      this.$router.push('/login')
     }
   }
 }

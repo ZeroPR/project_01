@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import router from './router'
 import store from './store'
 import VueSession from 'vue-session'
-
+import theme from './theme'
 Vue.config.productionTip = false
 
 Vue.use(VueSession)
