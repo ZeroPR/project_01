@@ -11,7 +11,11 @@
 <script>
 import LoginForm from '@/components/LoginForm'
 export default {
-    
+    beforeCreate(){
+        if(this.$session.exists()){
+            this.$router.push('/home')
+        }
+    },
     components: {
         LoginForm
     }
