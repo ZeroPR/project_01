@@ -17,31 +17,38 @@
                         <v-flex xs6>
                             <v-text-field
                             label="ID Factura"
+                            v-model="id_factura"
                             box>
                             </v-text-field>
                         </v-flex>
                         <v-flex xs6>
                             <v-text-field
                             label="ID Orden"
+                            v-model="id_orden"
                             box>
                             </v-text-field>
                         </v-flex>
                         <v-flex xs12>
                              <v-textarea
                             label="Descripcion"
+                            v-model="descripcion"
                             box>
                             </v-textarea>
                         </v-flex>
 
                         <!-- Fechas -->
-                        <v-flex xs12>
-                            Fechas
+                        <v-flex xs6>
+                            <fecha-input :setFecha="setFechaAjudicacion" label="Fecha Ajudicacion"></fecha-input>
+                        </v-flex>
+                        <v-flex xs6>
+                            <fecha-input :setFecha="setFechaFacturacion" label="Fecha Facturacion"></fecha-input>
                         </v-flex>
 
                         <!-- Montos -->
                         <v-flex xs6 sm4 md4>
                             <v-text-field
                             label="Monto"
+                            v-model="monto"
                             box
                             append-icon="fas fa-dollar-sign">
                             </v-text-field>
@@ -49,6 +56,8 @@
                         <v-flex xs6 sm4 md4>
                             <v-text-field
                             label="IVU"
+                            v-model="ivu"
+                            :value="computedIvu"
                             box
                             append-icon="fas fa-dollar-sign">
                             </v-text-field>
@@ -56,6 +65,7 @@
                         <v-flex xs6 sm4 md4>
                             <v-text-field
                             label="Monto Total"
+                            v-model="monto_total"
                             box
                             append-icon="fas fa-dollar-sign">
                             </v-text-field>
@@ -63,6 +73,52 @@
                     </v-layout>
                 </v-container>
             </v-form>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" @click="procesar">
+                    Procesar
+                </v-btn>
+            </v-card-actions>
         </v-card>
     </v-flex>
 </template>
+<script>
+import FechaInput from '@/components/FechaInput.vue'
+export default {
+    data(){return {
+        id_factura: '',
+        id_orden: '',
+        descripcion: '',
+        fecha_ajudicacion: '',
+        fecha_facturacion: '',
+        monto: '',
+        ivu: '',
+        monto_total: ''
+    }},
+    methods: {
+        setFechaAjudicacion(fecha){
+            this.fecha_ajudicacion = fecha
+        },
+        setFechaFacturacion(fecha){
+            this.fecha_facturacion = fecha
+        }
+    },
+    computed: {
+        computedIvu(){
+            return parseFloat(this.monto) * 0.115
+        },
+        computedMontoTotal(){
+            return parseFloat(this.monto) + this.computedIvu
+        }
+    },
+    watch:{
+        monto(val){
+            this.ivu = parseFloat(val) * 0.115
+            this.monto_total = parseFloat(val) + this.ivu
+        }
+    },
+    components:{
+        FechaInput
+    }
+}
+</script>

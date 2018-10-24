@@ -10,12 +10,14 @@
             prepend-icon="fas fa-user" 
             name="login" label="Login" 
             type="text"
-            v-model="username"></v-text-field>
+            v-model="username"
+            @keyup.enter="login"></v-text-field>
             <v-text-field id="password" 
             prepend-icon="fas fa-lock" 
             name="password" label="Password" 
             type="password"
-            v-model="password"></v-text-field>
+            v-model="password"
+            @keyup.enter="login"></v-text-field>
         </v-form>
         </v-card-text>
         <v-card-actions>
