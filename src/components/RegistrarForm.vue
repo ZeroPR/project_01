@@ -7,7 +7,8 @@
                 <v-tooltip bottom>
                     <v-btn 
                     slot="activator" 
-                    color="secondary">Clear</v-btn>
+                    color="secondary"
+                    depressed>Clear</v-btn>
                     <span>Limpiar el Formulario</span>
                 </v-tooltip>
             </v-toolbar>
@@ -75,8 +76,12 @@
             </v-form>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="procesar">
+                <v-btn 
+                color="primary" 
+                @click="procesar"
+                :loading="loading">
                     Procesar
+                    <v-icon right>fas fa-check</v-icon>
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -93,7 +98,9 @@ export default {
         fecha_facturacion: '',
         monto: '',
         ivu: '',
-        monto_total: ''
+        monto_total: '',
+
+        loading: false
     }},
     methods: {
         setFechaAjudicacion(fecha){
@@ -101,6 +108,36 @@ export default {
         },
         setFechaFacturacion(fecha){
             this.fecha_facturacion = fecha
+        },
+
+        procesar(){
+            this.loading = true
+            let data = {
+                id_factura: this.id_factura,
+                id_orden: this.id_orden,
+                descripcion: this.descripcion,
+                fecha_ajudicacion: this.fecha_ajudicacion,
+                fecha_facturacion: this.fecha_facturacion,
+                monto: this.monto,
+                ivu: this.ivu,
+                monto_total: this.monto_total
+            }
+
+            this.$axios.post('http://localhost:5000/registros/agregar', data, {headers: {
+                'x-access-token': this.$session.get('token')
+            }})
+            .then(res => {
+                if('message' in res.data){
+                    alert(res.data.message, 'INFO')
+                }
+                this.loading = false
+            })
+            .catch(err => {
+                alert(err.message, 'ERROR')
+                this.loading = false
+            })
+
+            
         }
     },
     computed: {

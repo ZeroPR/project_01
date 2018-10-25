@@ -22,12 +22,8 @@
         </v-card-text>
         <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="login">
-            <span v-if="!loading">Login</span>
-            <v-progress-circular v-if="loading"
-            :value="100"
-            indeterminate
-            ></v-progress-circular>
+        <v-btn color="primary" @click="login" :loading="loading">
+            Login            
         </v-btn>
         </v-card-actions>
     </v-card>
