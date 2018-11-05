@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container justify-space-around>
         <v-layout>
             <v-flex xs12>
                 <tabla-registro :facturas="facturas"></tabla-registro>
