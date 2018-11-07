@@ -9,9 +9,20 @@ import router from './router'
 import store from './store'
 import VueSession from 'vue-session'
 import theme from './theme'
+import {formatMoney} from 'accounting'
+import moment from 'moment'
+
 Vue.config.productionTip = false
 
 Vue.use(VueSession)
+
+Vue.filter('currency', (val) => {
+  return formatMoney(val)
+})
+
+Vue.filter('fecha', (val) => {
+  return new moment(val).format('DD[/]MM[/]YYYY')
+})
 
 new Vue({
   router,

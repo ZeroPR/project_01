@@ -8,11 +8,12 @@
                     <v-btn 
                     slot="activator" 
                     color="secondary"
+                    @click="reset"
                     depressed>Clear</v-btn>
                     <span>Limpiar el Formulario</span>
                 </v-tooltip>
             </v-toolbar>
-            <v-form>
+            <v-form ref='registrarForm'>
                 <v-container grid-list-sm>
                     <v-layout row wrap>
                         <v-flex xs6>
@@ -71,6 +72,18 @@
                             append-icon="fas fa-dollar-sign">
                             </v-text-field>
                         </v-flex>
+
+                        <!-- Checkboxes -->
+                        <v-flex xs6 md6>
+                            <v-checkbox
+                            label="Facturado"
+                            v-model="facturado"></v-checkbox>
+                        </v-flex>
+                        <v-flex xs6 md6>
+                            <v-checkbox
+                            label="Cobrado"
+                            v-model="cobrado"></v-checkbox>
+                        </v-flex>
                     </v-layout>
                 </v-container>
             </v-form>
@@ -99,6 +112,8 @@ export default {
         monto: '',
         ivu: '',
         monto_total: '',
+        facturado: false,
+        cobrado: false,
 
         loading: false
     }},
@@ -120,7 +135,9 @@ export default {
                 fecha_facturacion: this.fecha_facturacion,
                 monto: this.monto,
                 ivu: this.ivu,
-                monto_total: this.monto_total
+                monto_total: this.monto_total,
+                facturado: this.facturado,
+                cobrado: this.cobrado
             }
 
             this.$axios.post('http://localhost:5000/registros/agregar', data, {headers: {
@@ -138,7 +155,11 @@ export default {
             })
 
             
-        }
+        },
+
+        reset(){
+            this.$refs.registrarForm.reset()
+        },
     },
     computed: {
         computedIvu(){

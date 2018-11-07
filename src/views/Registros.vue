@@ -1,10 +1,6 @@
 <template>
-    <v-container justify-space-around>
-        <v-layout>
-            <v-flex xs12>
-                <tabla-registro :facturas="facturas"></tabla-registro>
-            </v-flex>
-        </v-layout>
+    <v-container fluid>
+        <tabla-registro :actualizarRegistro="actualizarRegistro" :facturas="facturas"></tabla-registro>
     </v-container>
 </template>
 <script>
@@ -30,6 +26,10 @@ export default {
             .catch(err => {
                 alert(err.message, 'ERROR')
             })
+        },
+
+        actualizarRegistro(data){
+            this.facturas = data
         }
     },
     components: {

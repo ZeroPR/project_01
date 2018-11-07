@@ -83,7 +83,7 @@ export default {
       {icon: 'fas fa-info-circle', title: 'About', to: '/about'},
       ],
       miniVariant: false,
-      title: 'General Maintenance Services Corp.'
+      title: 'R.E. General Maintenance Services Corp.'
     }
   },
 
