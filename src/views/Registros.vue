@@ -1,6 +1,9 @@
 <template>
     <v-container fluid>
-        <tabla-registro :actualizarRegistro="actualizarRegistro" :facturas="facturas"></tabla-registro>
+        <tabla-registro 
+        :actualizarRegistro="actualizarRegistro" 
+        :obtenerFacturas="obtenerFacturas"
+        :facturas="facturas"></tabla-registro>
     </v-container>
 </template>
 <script>

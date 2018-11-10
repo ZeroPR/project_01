@@ -57,14 +57,15 @@
         <modal-editar-factura 
         :dialog="dialog" 
         :cerrar="cerrarModalEditar"
-        :facturaSeleccionada="facturaSeleccionada"></modal-editar-factura>
+        :facturaSeleccionada="facturaSeleccionada"
+        :obtenerFacturas="obtenerFacturas"></modal-editar-factura>
     </div>
 </template>
 
 <script>
 import ModalEditarFactura from '@/components/ModalEditarFactura.vue'
 export default {
-    props: ['facturas', 'actualizarRegistro'],
+    props: ['facturas', 'actualizarRegistro', 'obtenerFacturas'],
     data(){return {
         headers: [
             {text: 'ID Factura', align: 'left', sortable: true, value: 'id_factura'},
