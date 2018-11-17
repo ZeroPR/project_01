@@ -24,8 +24,9 @@
     </v-dialog>
 </template>
 <script>
+import moment from 'moment'
 export default {
-    props: ['setFecha', 'label'],
+    props: ['setFecha', 'label', 'value'],
     data() {
         return {
             modal: false,
@@ -35,6 +36,9 @@ export default {
     watch:{
         date(val){
             this.setFecha(val)
+        },
+        value(val){
+            this.date = moment(val).format('YYYY[-]MM[-]DD')
         }
     }
 }
